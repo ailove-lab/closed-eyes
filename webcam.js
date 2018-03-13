@@ -7,7 +7,7 @@ var Webcam = Webcam || function(width, height) {
     this.stream = false;
 
     this.domElement = document.createElement('video');
-    this.domElement.width = this.width;
+    this.domElement.width  = this.width;
     this.domElement.height = this.height;
 
     // polyfill for Stream API
@@ -42,6 +42,15 @@ Webcam.prototype = {
             var vendorURL = window.URL || window.webkitURL;
             this.domElement.src = vendorURL.createObjectURL(this.stream);
         }
+        var _this = this
+        this.domElement.onloadedmetadata = function() {
+            _this.videoWidth  = this.videoWidth;
+            _this.videoHeight = this.videoHeight;
+            // _this.domElement.width  = this.videoWidth;
+            // _this.domElement.height = this.videoHeight;
+            console.log(this.videoWidth, this.videoHeight);
+        }
+
         this.domElement.play();
         this.success();
     },

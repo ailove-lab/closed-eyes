@@ -8,8 +8,9 @@ var originalCanvas, originalContext, trackerCanvas, trackerContext, eyeCanvas, e
 var correlationPercentage, blinksDetected;
 
 var settings = {
+    padding: 5,
     contrast: 3,
-    brightness: 0.5,
+    brightness: 0.3,
     threshold: 80,
     minCorrelation: 0.17,
 };
@@ -23,7 +24,7 @@ function init() {
     window.addEventListener('blur', stop, false);
 
     // instanciate our Webcam class
-    webcam = new Webcam(640, 480);
+    webcam = new Webcam(320, 240);
 
     // tracker
     tracker = new clm.tracker();
@@ -31,10 +32,8 @@ function init() {
 
     // eye rect
     eyeRect = {
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0,
+        x: 0, y: 0,
+        w: 0, h: 0,
     };
 
     // original canvas and context
@@ -103,7 +102,9 @@ function stop(e) {
 }
 
 function update() {
+    
     raf = requestAnimationFrame(update);
+
     originalContext.clearRect(0, 0, originalContext.canvas.width, originalContext.canvas.height);
     trackerContext.clearRect(0, 0, trackerContext.canvas.width, trackerContext.canvas.height);
     bwContext.clearRect(0, 0, bwContext.canvas.width, bwContext.canvas.height);
@@ -127,14 +128,26 @@ function update() {
         eyeRect.y = pos[24][1];
         eyeRect.w = pos[25][0] - pos[23][0];
         eyeRect.h = pos[26][1] - pos[24][1];
-
+        
+        var d = Math.max(eyeRect.w, eyeRect.h)+settings.padding;
+        var cx = (pos[23][0]+pos[25][0])/2.0;
+        var cy = (pos[24][1]+pos[26][1])/2.0;
+        
         // draw eye
         eyeContext.save();
         var w = eyeContext.canvas.width;
         var h = eyeContext.canvas.height;
-        eyeContext.translate(w/2.0, h/2.0);
+        eyeContext.translate(w/2.0, w/2.0);
         eyeContext.rotate(-angle);
-        eyeContext.drawImage(originalCanvas, eyeRect.x, eyeRect.y, eyeRect.w, eyeRect.h, -w/2.0, -h/2.0, eyeContext.canvas.width, eyeContext.canvas.height);
+
+        var kx = webcam.videoWidth  /  originalContext.canvas.width ;
+        var ky = webcam.videoHeight /  originalContext.canvas.height;
+        eyeContext.drawImage(webcam.domElement,
+            (cx-d/2.0)*kx, (cy-d/2.0)*ky,
+            d*kx, d*ky,
+            -w/2.0, -h/2.0,
+            eyeContext.canvas.width,
+            eyeContext.canvas.height);
         eyeContext.restore();
 
         // black and white
@@ -168,6 +181,7 @@ function update() {
 }
 
 function correlation() {
+
     if (curData) {
         oldData = curData;
     }
