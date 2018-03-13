@@ -23,7 +23,7 @@ function init() {
     window.addEventListener('blur', stop, false);
 
     // instanciate our Webcam class
-    webcam = new Webcam();
+    webcam = new Webcam(640, 480);
 
     // tracker
     tracker = new clm.tracker();
@@ -122,13 +122,20 @@ function update() {
     // extract right eye data
     var pos = tracker.getCurrentPosition();
     if (pos) {
+        var angle = Math.atan2(pos[25][1]-pos[23][1], pos[25][0]-pos[23][0]);
         eyeRect.x = pos[23][0];
         eyeRect.y = pos[24][1];
         eyeRect.w = pos[25][0] - pos[23][0];
         eyeRect.h = pos[26][1] - pos[24][1];
 
         // draw eye
-        eyeContext.drawImage(originalCanvas, eyeRect.x, eyeRect.y, eyeRect.w, eyeRect.h, 0, 0, eyeContext.canvas.width, eyeContext.canvas.height);
+        eyeContext.save();
+        var w = eyeContext.canvas.width;
+        var h = eyeContext.canvas.height;
+        eyeContext.translate(w/2.0, h/2.0);
+        eyeContext.rotate(-angle);
+        eyeContext.drawImage(originalCanvas, eyeRect.x, eyeRect.y, eyeRect.w, eyeRect.h, -w/2.0, -h/2.0, eyeContext.canvas.width, eyeContext.canvas.height);
+        eyeContext.restore();
 
         // black and white
         var data = CanvasFilters.getPixels(eyeCanvas);

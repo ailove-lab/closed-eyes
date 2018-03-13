@@ -1,7 +1,7 @@
 // @author: Andre Venancio (noreply@andrevenancio.com)
 // @date: 30 June 2016
 var Webcam = Webcam || function(width, height) {
-    this.width = width || 320;
+    this.width  = width  || 320;
     this.height = height || 240;
 
     this.stream = false;
