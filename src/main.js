@@ -189,8 +189,10 @@ function train(){
         // Make the predicted class bold
         if(res.classIndex == i){
           infoTexts[i].style.fontWeight = 'bold';
+          infoTexts[i].style.fontColor = '#0C5';
         } else {
           infoTexts[i].style.fontWeight = 'normal';
+          infoTexts[i].style.fontColor = '#FFF';
         }
 
         // Update info text
