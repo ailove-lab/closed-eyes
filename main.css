@@ -20,6 +20,8 @@ canvas {
     border: 1px solid black;
 }
 
+span { display: block; }
+
 .holder {
     position: relative;
     width: 100%;

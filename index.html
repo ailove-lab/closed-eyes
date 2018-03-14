@@ -1,37 +1,27 @@
 <html>
+
 <head>
-<link rel="stylesheet" type="text/css" href="main.css"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
 </head>
+
 <body>
 
-<div class="holder" data-title="Correlation">
+<div class="holder" data-title="closed eye detector">
     <div id="content">
         <canvas id="originalCanvas" width=320 height=240></canvas>
         <canvas id="trackerCanvas" width=320 height=240></canvas>
         <br />
-        <canvas id="eyeCanvas" width=24 height=24></canvas>
-        <canvas id="bwCanvas"  width=24 height=24></canvas>
-        <canvas id="thCanvas"  width=24 height=24></canvas>
+        <canvas id="eyeCanvas" width=227 height=227></canvas>
         <br />
-        <canvas id="oldCanvas" width=24 height=24></canvas>
-        <canvas id="curCanvas" width=24 height=24></canvas>
-        <canvas id="cCanvas"   width=24 height=24></canvas>
-        <br />
-        <p id="correlationPercentage">
-            0%
-        </p>
-        <p id="blinksDetected">
-            0
-        </p>
     </div>
 </div>
 
-<script src="clmtrackr.min.js"></script>
-<script src="canvasfilters.js"></script>
-<script src="model_pca_10_svm.js"></script>
-<script src="webcam.js"></script>
+<script src="src/clmtrackr.min.js"></script>
+<script src="src/canvasfilters.js"></script>
+<script src="src/model_pca_10_svm.js"></script>
+<script src="src/webcam.js"></script>
 
-<script src="main.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>

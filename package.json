@@ -1,0 +1,48 @@
+{
+  "name": "closed_eyes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "budo src/main.js:js/main.js --live --host localhost",
+    "build": "browserify src/main.js -o js/main.js"
+  },
+  "repository": "git+https://github.com/ailove-lab/closed-eyes.git",
+  "author": "peko <gasu.basu@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ailove-lab/closed-eyes/issues"
+  },
+  "homepage": "https://github.com/ailove-lab/closed-eyes#readme",
+  "dependencies": {
+    "browserify": "^16.1.1",
+    "deeplearn": "^0.5.1",
+    "deeplearn-knn-image-classifier": "^0.4.2"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ],
+          "plugins": [
+            "syntax-async-functions",
+            "transform-regenerator"
+          ]
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "budo": "^10.0.4"
+  }
+}
