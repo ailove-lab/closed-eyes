@@ -8,7 +8,7 @@ var originalCanvas, originalContext, trackerCanvas, trackerContext, eyeCanvas, e
 var correlationPercentage, blinksDetected;
 
 var settings = {
-    padding: 5,
+    padding: 3,
     contrast: 3,
     brightness: 0.3,
     threshold: 80,
